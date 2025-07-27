@@ -1,0 +1,23 @@
+networks:
+  default:
+    name: xoxxox_netmid
+    external: true
+services:
+  xoxxox_senluk:
+    image: xoxxox_envhgf:001
+    container_name: xoxxox_senluk
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+    - ../../../export:/opt/common
+    - ../../../import/cnnmmd_xoxxox_envhgf/envhgf/hgf:/root/.cache/huggingface
+    env_file:
+    - ./envdir.txt
+    ports:
+    - 16401:80
+    command: "python /opt/common/bin/xoxxox/srvsen.py --engine xoxxox/engine_senluk"
